@@ -203,7 +203,141 @@
         .hidden {
             display: none !important;
         }
+
+        /* Styles Formulaire RSVP */
+        .rsvp-form-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-step {
+            display: none;
+            animation: fadeInStep 0.5s ease-out forwards;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        @keyframes fadeInStep {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #223562;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 0;
+            border: none;
+            border-bottom: 1px solid #d8c4a1;
+            background: transparent;
+            color: #223562;
+            font-family: 'Lato', sans-serif;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus {
+            border-bottom-color: #223562;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            padding: 1rem;
+            border: 1px solid #d8c4a1;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .radio-option:hover {
+            background: rgba(216, 196, 161, 0.1);
+        }
+
+        .radio-option.selected {
+            background: #223562;
+            color: #fff;
+            border-color: #223562;
+        }
+
+        .radio-option input {
+            display: none;
+        }
+
+        .step-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            gap: 1rem;
+        }
+
+        .btn-form {
+            padding: 1rem 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 10px;
+            font-weight: 700;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-next {
+            background: #223562;
+            color: #fff;
+            flex: 1;
+        }
+
+        .btn-prev {
+            border: 1px solid #223562;
+            color: #223562;
+        }
+
+        .btn-form:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 2px;
+            background: #eee;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #b8a27d;
+            width: 20%;
+            transition: width 0.5s ease;
+        }
     </style>
+
 </head>
 
 <body class="min-h-screen">
@@ -561,16 +695,177 @@
                     </p>
                 </div>
 
-                <div class="mt-12 sm:mt-20 px-4">
+                <div class="mt-12 sm:mt-20 px-4 flex flex-col sm:flex-row justify-center gap-4">
                     <button onclick="addToCalendar()"
-                        class="group relative overflow-hidden bg-[#223562] text-white px-8 sm:px-14 py-3 sm:py-4 transition-all duration-700 uppercase tracking-widest text-[9px] sm:text-[10px] w-full sm:w-auto">
+                        class="group relative overflow-hidden border border-[#223562] text-[#223562] px-8 sm:px-14 py-3 sm:py-4 transition-all duration-700 uppercase tracking-widest text-[9px] sm:text-[10px] w-full sm:w-auto hover:text-white">
                         <span data-t="add_to_calendar" class="relative z-10 font-bold">Ajouter à l'agenda</span>
+                        <div
+                            class="absolute inset-0 bg-[#223562] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left">
+                        </div>
+                    </button>
+                    <button onclick="toggleRSVP(true)"
+                        class="group relative overflow-hidden bg-[#223562] text-white px-8 sm:px-14 py-3 sm:py-4 transition-all duration-700 uppercase tracking-widest text-[9px] sm:text-[10px] w-full sm:w-auto border border-[#223562]">
+                        <span data-t="rsvp_button" class="relative z-10 font-bold">RSVP prévisionnel</span>
                         <div
                             class="absolute inset-0 bg-[#b8a27d] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left">
                         </div>
                     </button>
                 </div>
             </main>
+
+            <!-- Vue RSVP -->
+            <div id="rsvp-view" class="hidden fixed inset-0 z-50 bg-[#fcfaf7]/90 backdrop-blur-md overflow-y-auto pt-4 sm:pt-10 pb-20 px-4">
+                <div class="max-w-4xl mx-auto flex flex-col items-center">
+                    <button onclick="toggleRSVP(false)" 
+                        class="mb-6 self-start flex items-center gap-2 text-[#223562] uppercase tracking-[0.2em] text-[10px] font-bold hover:text-[#b8a27d] transition-colors p-2">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="opacity-70">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                        <span data-t="back_button">Retour</span>
+                    </button>
+                    
+                    <h2 data-t="rsvp_title" class="script text-4xl sm:text-6xl gold-text mb-8 text-center w-full">Formulaire RSVP</h2>
+                    
+                    <div class="rsvp-form-container bg-white/60 p-6 sm:p-10 rounded-sm border border-slate-200/50 shadow-2xl">
+                        <!-- Barre de progression -->
+                        <div class="progress-bar">
+                            <div id="progress-fill" class="progress-fill"></div>
+                        </div>
+
+                        <form id="rsvp-form" action="https://api.web3forms.com/submit" method="POST">
+                            <input type="hidden" name="access_key" value="22fe76f8-e5dc-4349-8176-49028520eeab">
+                            <input type="hidden" name="from_name" value="Mariage Béatrice & Martin">
+                            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+                            <!-- Étape 1 : Identité -->
+                            <div class="form-step active" data-step="1">
+                                <div class="form-group">
+                                    <label class="form-label"><span data-t="label_nom">Nom</span> <span class="gold-text ml-1">*</span></label>
+                                    <input type="text" name="name" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label"><span data-t="label_prenom">Prénom</span> <span class="gold-text ml-1">*</span></label>
+                                    <input type="text" name="first_name" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label"><span data-t="label_email">E-mail</span> <span class="gold-text ml-1">*</span></label>
+                                    <input type="email" name="email" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label"><span data-t="label_phone">Numéro de téléphone</span> <span class="gold-text ml-1">*</span></label>
+                                    <input type="tel" name="phone" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label"><span data-t="label_address">Adresse Postale</span> <span class="gold-text ml-1">*</span></label>
+                                    <textarea name="address" class="form-input h-20 resize-none" required></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Étape 2 : Présence -->
+                            <div class="form-step" data-step="2">
+                                <div class="form-group text-center">
+                                    <label class="form-label mb-6 text-sm"><span data-t="q_presence">Serez-vous présent le 02 Avril 2027 à l'île Maurice ?</span> <span class="gold-text ml-1">*</span></label>
+                                    <div class="radio-group">
+                                        <label class="radio-option" onclick="selectRadio(this)">
+                                            <input type="radio" name="attending" value="Oui" required>
+                                            <span data-t="yes">Oui</span>
+                                        </label>
+                                        <label class="radio-option" onclick="selectRadio(this)">
+                                            <input type="radio" name="attending" value="Non">
+                                            <span data-t="no">Non</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Étape 3 : Détails Invités (Conditionnel) -->
+                            <div class="form-step" data-step="3" id="step-guests">
+                                <div class="form-group">
+                                    <label class="form-label"><span data-t="q_adults">Combien d'adultes serez-vous ?</span> <span class="gold-text ml-1">*</span></label>
+                                    <select name="adult_count" class="form-input">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label"><span data-t="q_children">Combien d'enfants vous accompagneront ?</span> <span class="gold-text ml-1">*</span></label>
+                                    <select name="child_count" class="form-input">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Étape 4 : Logement (Conditionnel) -->
+                            <div class="form-step" data-step="4" id="step-lodging">
+                                <div class="form-group">
+                                    <label class="form-label"><span data-t="q_lodging">Avez-vous une option de logement sur place pour la nuit du mariage ?</span> <span class="gold-text ml-1">*</span></label>
+                                    <div class="radio-group">
+                                        <label class="radio-option" onclick="selectRadio(this)">
+                                            <input type="radio" name="has_lodging" value="Oui">
+                                            <span data-t="yes">Oui</span>
+                                        </label>
+                                        <label class="radio-option" onclick="selectRadio(this)">
+                                            <input type="radio" name="has_lodging" value="Non">
+                                            <span data-t="no">Non</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div id="lodging-preference" class="hidden mt-6">
+                                    <label class="form-label" data-t="q_lodging_pref">Souhaitez-vous :</label>
+                                    <div class="radio-group">
+                                        <label class="radio-option" onclick="selectRadio(this)">
+                                            <input type="radio" name="lodging_choice" value="Propres moyens">
+                                            <span data-t="lodging_own">Trouver par mes propres moyens</span>
+                                        </label>
+                                        <label class="radio-option" onclick="selectRadio(this)">
+                                            <input type="radio" name="lodging_choice" value="Tarif groupe">
+                                            <span data-t="lodging_group">Être inclus dans les demandes de potentiel devis de groupe</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Étape 5 : Conclusion -->
+                            <div class="form-step" data-step="5">
+                                <div class="text-center mb-8">
+                                    <div id="msg-present" class="hidden">
+                                        <p data-t="msg_yes" class="serif text-lg text-[#223562]">Nous sommes ravis de pouvoir compter sur votre présence !</p>
+                                    </div>
+                                    <div id="msg-absent" class="hidden">
+                                        <p data-t="msg_no" class="serif text-lg text-[#223562]">Nous sommes désolés d’apprendre votre absence...</p>
+                                    </div>
+                                    <p id="msg-final" class="mt-4 text-slate-500 text-sm italic" data-t="msg_final_yes">Vous recevrez bientôt les invitations.</p>
+                                </div>
+                                <button type="submit" id="submit-btn" class="btn-form btn-next w-full">
+                                    <span data-t="submit_rsvp">Envoyer la réponse</span>
+                                </button>
+                            </div>
+
+                            <!-- Navigation -->
+                            <div class="step-nav">
+                                <button type="button" id="prev-btn" class="btn-form btn-prev hidden" onclick="changeStep(-1)">Précédent</button>
+                                <button type="button" id="next-btn" class="btn-form btn-next" onclick="changeStep(1)">Suivant</button>
+                            </div>
+
+                            <div id="form-result" class="hidden mt-6 text-center text-sm font-bold uppercase tracking-widest text-[#b8a27d]"></div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+
 
             <footer
                 class="mt-20 sm:mt-28 mb-8 fade-in text-slate-400 text-[9px] sm:text-[11px] tracking-[0.1em] sm:tracking-[0.4em]"
@@ -598,12 +893,40 @@
                 seconds: "Secondes",
                 venue_title: "Le Lieu",
                 venue_desc: '"Rendez-vous à l\'île Maurice. <br> Le lieu exact des festivités reste encore secret un petit moment... <br> Préparez-vous à un séjour tropical et festif."',
-                invitation_note: "Les invitations formelles ainsi que les informations essentielles suivront très prochainement.",
+                invitation_note: "L'invitation formelle ainsi que les informations essentielles suivront très prochainement.",
                 add_to_calendar: "Ajouter à l'agenda",
+                rsvp_button: "RSVP prévisionnel",
+                rsvp_title: "Formulaire RSVP",
+                back_button: "Retour",
                 it_is_the_day: "C'est le grand jour !",
                 cal_title: "Mariage de Béatrice & Martin",
                 cal_desc: "Nous nous donnons rendez-vous à l'île Maurice. Préparez-vous à un séjour tropical et festif.",
-                cal_loc: "Île Maurice"
+                cal_loc: "Île Maurice",
+                label_nom: "Nom",
+                label_prenom: "Prénom",
+                label_email: "E-mail",
+                label_phone: "Numéro de téléphone",
+                label_address: "Adresse Postale",
+                q_presence: "Serez-vous présent le 02 Avril 2027 à l'île Maurice ?",
+                yes: "Oui",
+                no: "Non",
+                q_adults: "Combien d'adultes serez-vous ?",
+                q_children: "Combien d'enfants vous accompagneront ?",
+                q_lodging: "Avez-vous une option de logement sur place pour la nuit du mariage ?",
+                q_lodging_pref: "Souhaitez-vous :",
+                lodging_own: "Trouver par vos propres moyens",
+                lodging_group: "Être inclus dans les demandes de potentiel devis de groupe",
+                msg_yes: "Nous sommes ravis de pouvoir compter sur votre présence !",
+                msg_no: "Nous sommes désolés d’apprendre votre absence...",
+                msg_final_yes: "L'invitation formelle vous parviendra prochainement.",
+                msg_final_no: "Si par chance vous arrivez à vous libérer finalement, n'hésitez pas à nous contacter ou nous envoyer un e-mail à martin.beatrice.wedding@gmail.com. Pas d'inquiétude, vous aurez jusqu'au RSVP pour changer d'avis.",
+                submit_rsvp: "Envoyer la réponse",
+                sending: "Envoi en cours...",
+                success_msg: "Merci ! Votre réponse a été enregistrée.",
+                error_msg_form: "Une erreur est survenue. Veuillez réessayer.",
+                validation_error: "Veuillez remplir tous les champs obligatoires avant de continuer.",
+                btn_next: "Suivant",
+                btn_prev: "Précédent"
             },
             en: {
                 acc_reserved: "Reserved Access",
@@ -618,12 +941,40 @@
                 seconds: "Seconds",
                 venue_title: "The Venue",
                 venue_desc: '"Join us in Mauritius. <br> The exact location of the festivities will remain a secret for a little while... <br> Get ready for a tropical and festive stay."',
-                invitation_note: "Formal invitations and essential information will follow very soon.",
+                invitation_note: "The formal invitation and essential information will follow very soon.",
                 add_to_calendar: "Add to Calendar",
+                rsvp_button: "Provisional RSVP",
+                rsvp_title: "RSVP Form",
+                back_button: "Back",
                 it_is_the_day: "It's the big day!",
                 cal_title: "Wedding of Béatrice & Martin",
                 cal_desc: "Join us in Mauritius. Get ready for a tropical and festive stay.",
-                cal_loc: "Mauritius"
+                cal_loc: "Mauritius",
+                label_nom: "Last Name",
+                label_prenom: "First Name",
+                label_email: "E-mail",
+                label_phone: "Phone Number",
+                label_address: "Postal Address",
+                q_presence: "Will you be present on April 2, 2027 in Mauritius?",
+                yes: "Yes",
+                no: "No",
+                q_adults: "How many adults will be attending?",
+                q_children: "How many children will be joining you?",
+                q_lodging: "Do you have accommodation planned for the wedding night?",
+                q_lodging_pref: "Would you like to:",
+                lodging_own: "Find your own accommodation",
+                lodging_group: "Be included in potential group rate quotes",
+                msg_yes: "We are delighted that you can join us!",
+                msg_no: "We are sorry you won't be able to make it...",
+                msg_final_yes: "The formal invitation will follow shortly.",
+                msg_final_no: "If by chance you are able to join us after all, please don't hesitate to contact us or email us at martin.beatrice.wedding@gmail.com. No worries, you'll have until the RSVP deadline to change your mind.",
+                submit_rsvp: "Submit RSVP",
+                sending: "Sending...",
+                success_msg: "Thank you! Your response has been recorded.",
+                error_msg_form: "An error occurred. Please try again.",
+                validation_error: "Please fill in all required fields before continuing.",
+                btn_next: "Next",
+                btn_prev: "Back"
             }
         };
 
@@ -637,9 +988,134 @@
                     el.innerHTML = translations[currentLang][key];
                 }
             });
+            // Update static button texts
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            if (prevBtn) prevBtn.innerText = translations[currentLang].btn_prev;
+            if (nextBtn && nextBtn.style.display !== 'none') nextBtn.innerText = translations[currentLang].btn_next;
         }
 
         window.addEventListener('DOMContentLoaded', translatePage);
+
+        // RSVP Form Logic
+        let currentStep = 1;
+        const totalSteps = 5;
+
+        function toggleRSVP(show) {
+            const rsvpView = document.getElementById('rsvp-view');
+            if (show) {
+                rsvpView.classList.remove('hidden');
+                rsvpView.scrollTo(0, 0);
+                resetForm();
+            } else {
+                rsvpView.classList.add('hidden');
+            }
+        }
+
+        function selectRadio(el) {
+            const group = el.closest('.radio-group');
+            group.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
+            el.classList.add('selected');
+            const input = el.querySelector('input');
+            input.checked = true;
+
+            // Conditional logic for lodging
+            if (input.name === 'has_lodging') {
+                const pref = document.getElementById('lodging-preference');
+                if (input.value === 'Non') {
+                    pref.classList.remove('hidden');
+                } else {
+                    pref.classList.add('hidden');
+                }
+            }
+        }
+
+        function changeStep(n) {
+            const steps = document.querySelectorAll('.form-step');
+            
+            if (n > 0 && !validateStep(currentStep)) return;
+
+            let nextStep = currentStep + n;
+
+            const attendingInput = document.querySelector('input[name="attending"]:checked');
+            const attending = attendingInput ? attendingInput.value : null;
+
+            if (currentStep === 2 && n > 0 && attending === 'Non') {
+                nextStep = 5;
+            } else if (currentStep === 5 && n < 0 && attending === 'Non') {
+                nextStep = 2;
+            }
+
+            if (nextStep < 1 || nextStep > totalSteps) return;
+
+            steps.forEach(s => s.classList.remove('active'));
+            currentStep = nextStep;
+            document.querySelector(`.form-step[data-step="${currentStep}"]`).classList.add('active');
+
+            updateNav();
+            updateProgress();
+            
+            if (currentStep === 5) {
+                const isAttending = (attending === 'Oui');
+                document.getElementById('msg-present').classList.toggle('hidden', !isAttending);
+                document.getElementById('msg-absent').classList.toggle('hidden', isAttending);
+                
+                const finalMsg = document.getElementById('msg-final');
+                if (finalMsg) {
+                    finalMsg.setAttribute('data-t', isAttending ? 'msg_final_yes' : 'msg_final_no');
+                    finalMsg.innerHTML = translations[currentLang][isAttending ? 'msg_final_yes' : 'msg_final_no'];
+                }
+            }
+        }
+
+        function validateStep(step) {
+            const currentEl = document.querySelector(`.form-step[data-step="${step}"]`);
+            const inputs = currentEl.querySelectorAll('input[required], textarea[required]');
+            let valid = true;
+            inputs.forEach(input => {
+                if (input.type === 'radio') {
+                    const checked = currentEl.querySelector(`input[name="${input.name}"]:checked`);
+                    if (!checked) valid = false;
+                } else if (!input.value.trim()) {
+                    valid = false;
+                }
+            });
+            
+            if (!valid) {
+                alert(translations[currentLang].validation_error);
+            }
+            return valid;
+        }
+
+        function updateNav() {
+            document.getElementById('prev-btn').classList.toggle('hidden', currentStep === 1);
+            document.getElementById('next-btn').classList.toggle('hidden', currentStep === totalSteps);
+        }
+
+        function updateProgress() {
+            const fill = document.getElementById('progress-fill');
+            fill.style.width = (currentStep / totalSteps * 100) + '%';
+        }
+
+        function resetForm() {
+            currentStep = 1;
+            const rsvpForm = document.getElementById('rsvp-form');
+            if (rsvpForm) rsvpForm.reset();
+            document.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+            const firstStep = document.querySelector('.form-step[data-step="1"]');
+            if (firstStep) firstStep.classList.add('active');
+            document.getElementById('lodging-preference').classList.add('hidden');
+            document.getElementById('form-result').classList.add('hidden');
+            const submitBtn = document.getElementById('submit-btn');
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('hidden');
+                submitBtn.innerHTML = `<span data-t="submit_rsvp">${translations[currentLang].submit_rsvp}</span>`;
+            }
+            updateNav();
+            updateProgress();
+        }
 
         function checkPassword() {
             const input = document.getElementById('password-input').value;
@@ -798,7 +1274,45 @@
             setInterval(() => createBubble('right'), 150);
             setInterval(createFirework, 800);
         }
+
+        const rsvpForm = document.getElementById('rsvp-form');
+        if (rsvpForm) {
+            rsvpForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(rsvpForm);
+                const submitBtn = document.getElementById('submit-btn');
+                const result = document.getElementById('form-result');
+
+                submitBtn.disabled = true;
+                submitBtn.innerText = translations[currentLang].sending;
+
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(async (response) => {
+                    if (response.status == 200) {
+                        result.innerHTML = translations[currentLang].success_msg;
+                        result.classList.remove('hidden');
+                        submitBtn.classList.add('hidden');
+                        setTimeout(() => toggleRSVP(false), 3000);
+                    } else {
+                        result.innerHTML = translations[currentLang].error_msg_form;
+                        result.classList.remove('hidden');
+                        submitBtn.disabled = false;
+                        submitBtn.innerText = translations[currentLang].submit_rsvp;
+                    }
+                })
+                .catch(error => {
+                    result.innerHTML = translations[currentLang].error_msg_form;
+                    result.classList.remove('hidden');
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = translations[currentLang].submit_rsvp;
+                });
+            });
+        }
     </script>
+
 </body>
 
 </html>
