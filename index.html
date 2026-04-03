@@ -217,17 +217,17 @@
                 <path d="M100 5L65 25L100 45V5Z" fill="#223562" />
                 <rect x="40" y="16" width="20" height="18" rx="2" fill="#223562" />
             </svg>
-            <h2 class="serif text-xs sm:text-sm uppercase tracking-[0.4em] text-slate-500 mb-2">Accès Réservé</h2>
-            <p class="text-[9px] sm:text-[10px] uppercase tracking-widest text-slate-400">Veuillez entrer votre code
+            <h2 data-t="acc_reserved" class="serif text-xs sm:text-sm uppercase tracking-[0.4em] text-slate-500 mb-2">Accès Réservé</h2>
+            <p data-t="enter_code" class="text-[9px] sm:text-[10px] uppercase tracking-widest text-slate-400">Veuillez entrer votre code
                 d'accès</p>
 
             <input type="password" id="password-input" class="password-input" placeholder="••••">
 
             <button onclick="checkPassword()"
                 class="mt-8 bg-[#223562] text-white px-8 py-3 w-full transition-all duration-500 uppercase tracking-widest text-[10px] hover:bg-[#b8a27d]">
-                Valider
+                <span data-t="validate">Valider</span>
             </button>
-            <p id="error-msg" class="text-red-500 text-[9px] mt-4 uppercase tracking-widest hidden">Code incorrect</p>
+            <p id="error-msg" data-t="code_incorrect" class="text-red-500 text-[9px] mt-4 uppercase tracking-widest hidden">Code incorrect</p>
         </div>
     </div>
 
@@ -500,7 +500,7 @@
                 <h1 class="script text-[8.5vw] sm:text-7xl md:text-9xl gold-text mb-4 whitespace-nowrap px-2">
                     Béatrice & Martin
                 </h1>
-                <p
+                <p data-t="marriage_sacrament"
                     class="serif italic text-lg sm:text-xl md:text-2xl text-slate-600 mt-2 sm:mt-6 font-light opacity-80">
                     recevront le sacrement du mariage</p>
             </header>
@@ -512,7 +512,7 @@
                     <p class="text-4xl sm:text-5xl md:text-7xl serif tracking-tighter font-light text-[#223562]">
                         02 . 04 . 2027
                     </p>
-                    <p
+                    <p data-t="date_long"
                         class="mt-3 sm:mt-4 text-slate-400 uppercase tracking-[0.4em] sm:tracking-[0.5em] text-[8px] sm:text-[9px] font-bold">
                         Vendredi | 2 Avril | 2027</p>
                 </div>
@@ -522,40 +522,40 @@
                     <div class="text-center min-w-[45px] sm:min-w-[70px]">
                         <span id="days"
                             class="text-lg sm:text-2xl md:text-4xl font-light text-[#223562] serif block">00</span>
-                        <span
+                        <span data-t="days"
                             class="text-[6px] sm:text-[8px] uppercase tracking-[0.1em] sm:tracking-[0.3em] text-slate-400">Jours</span>
                     </div>
                     <div class="text-center min-w-[45px] sm:min-w-[70px]">
                         <span id="hours"
                             class="text-lg sm:text-2xl md:text-4xl font-light text-[#223562] serif block">00</span>
-                        <span
+                        <span data-t="hours"
                             class="text-[6px] sm:text-[8px] uppercase tracking-[0.1em] sm:tracking-[0.3em] text-slate-400">Heures</span>
                     </div>
                     <div class="text-center min-w-[45px] sm:min-w-[70px]">
                         <span id="minutes"
                             class="text-lg sm:text-2xl md:text-4xl font-light text-[#223562] serif block">00</span>
-                        <span
+                        <span data-t="minutes"
                             class="text-[6px] sm:text-[8px] uppercase tracking-[0.1em] sm:tracking-[0.3em] text-slate-400">Minutes</span>
                     </div>
                     <div class="text-center min-w-[45px] sm:min-w-[70px]">
                         <span id="seconds"
                             class="text-lg sm:text-2xl md:text-4xl font-light gold-text serif block">00</span>
-                        <span
+                        <span data-t="seconds"
                             class="text-[6px] sm:text-[8px] uppercase tracking-[0.1em] sm:tracking-[0.3em] text-slate-400">Secondes</span>
                     </div>
                 </div>
 
                 <div
                     class="max-w-md mx-auto bg-white/40 backdrop-blur-md p-6 sm:p-10 rounded-sm border border-slate-200/50 shadow-sm relative">
-                    <h2
+                    <h2 data-t="venue_title"
                         class="serif text-[8px] sm:text-[9px] mb-4 sm:mb-6 uppercase tracking-[0.4em] sm:tracking-[0.5em] text-slate-400">
                         Le Lieu</h2>
-                    <p class="text-slate-800 leading-relaxed italic font-light text-base sm:text-xl">
+                    <p data-t="venue_desc" class="text-slate-800 leading-relaxed italic font-light text-base sm:text-xl">
                         "Rendez-vous à l'île Maurice. <br>
                         Le lieu exact des festivités reste encore secret un petit moment... <br>
                         Préparez-vous à un séjour tropical et festif."
                     </p>
-                    <p
+                    <p data-t="invitation_note"
                         class="mt-6 sm:mt-8 text-slate-400 text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-bold border-t border-slate-100 pt-6">
                         Les invitations formelles ainsi que les informations essentielles suivront très prochainement.
                     </p>
@@ -564,7 +564,7 @@
                 <div class="mt-12 sm:mt-20 px-4">
                     <button onclick="addToCalendar()"
                         class="group relative overflow-hidden bg-[#223562] text-white px-8 sm:px-14 py-3 sm:py-4 transition-all duration-700 uppercase tracking-widest text-[9px] sm:text-[10px] w-full sm:w-auto">
-                        <span class="relative z-10 font-bold">Ajouter à l'agenda</span>
+                        <span data-t="add_to_calendar" class="relative z-10 font-bold">Ajouter à l'agenda</span>
                         <div
                             class="absolute inset-0 bg-[#b8a27d] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left">
                         </div>
@@ -584,6 +584,63 @@
     </div>
 
     <script>
+        const translations = {
+            fr: {
+                acc_reserved: "Accès Réservé",
+                enter_code: "Veuillez entrer votre code d'accès",
+                validate: "Valider",
+                code_incorrect: "Code incorrect",
+                marriage_sacrament: "recevront le sacrement du mariage",
+                date_long: "Vendredi | 2 Avril | 2027",
+                days: "Jours",
+                hours: "Heures",
+                minutes: "Minutes",
+                seconds: "Secondes",
+                venue_title: "Le Lieu",
+                venue_desc: '"Rendez-vous à l\'île Maurice. <br> Le lieu exact des festivités reste encore secret un petit moment... <br> Préparez-vous à un séjour tropical et festif."',
+                invitation_note: "Les invitations formelles ainsi que les informations essentielles suivront très prochainement.",
+                add_to_calendar: "Ajouter à l'agenda",
+                it_is_the_day: "C'est le grand jour !",
+                cal_title: "Mariage de Béatrice & Martin",
+                cal_desc: "Nous nous donnons rendez-vous à l'île Maurice. Préparez-vous à un séjour tropical et festif.",
+                cal_loc: "Île Maurice"
+            },
+            en: {
+                acc_reserved: "Reserved Access",
+                enter_code: "Please enter your access code",
+                validate: "Validate",
+                code_incorrect: "Incorrect code",
+                marriage_sacrament: "will receive the sacrament of marriage",
+                date_long: "Friday | April 2nd | 2027",
+                days: "Days",
+                hours: "Hours",
+                minutes: "Minutes",
+                seconds: "Seconds",
+                venue_title: "The Venue",
+                venue_desc: '"Join us in Mauritius. <br> The exact location of the festivities will remain a secret for a little while... <br> Get ready for a tropical and festive stay."',
+                invitation_note: "Formal invitations and essential information will follow very soon.",
+                add_to_calendar: "Add to Calendar",
+                it_is_the_day: "It's the big day!",
+                cal_title: "Wedding of Béatrice & Martin",
+                cal_desc: "Join us in Mauritius. Get ready for a tropical and festive stay.",
+                cal_loc: "Mauritius"
+            }
+        };
+
+        const currentLang = window.location.search.includes('en') ? 'en' : 'fr';
+        document.documentElement.lang = currentLang;
+
+        function translatePage() {
+            document.querySelectorAll('[data-t]').forEach(el => {
+                const key = el.getAttribute('data-t');
+                if (translations[currentLang][key]) {
+                    el.innerHTML = translations[currentLang][key];
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', translatePage);
+
         function checkPassword() {
             const input = document.getElementById('password-input').value;
             const gate = document.getElementById('password-gate');
@@ -638,16 +695,16 @@
             if (distance < 0) {
                 clearInterval(countdownInterval);
                 const countdownBox = document.getElementById("countdown");
-                if (countdownBox) countdownBox.innerHTML = "<p class='serif gold-text text-xl'>C'est le grand jour !</p>";
+                if (countdownBox) countdownBox.innerHTML = `<p class='serif gold-text text-xl'>${translations[currentLang].it_is_the_day}</p>`;
             }
         }
         let countdownInterval;
 
         function addToCalendar() {
             const event = {
-                title: "Mariage de Béatrice & Martin",
-                description: "Nous nous donnons rendez-vous à l'île Maurice. Préparez-vous à un séjour tropical et festif.",
-                location: "Île Maurice",
+                title: translations[currentLang].cal_title,
+                description: translations[currentLang].cal_desc.replace(/<br>/g, " "),
+                location: translations[currentLang].cal_loc,
                 startDate: "20270402",
                 endDate: "20270403",
                 now: new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z"
@@ -656,7 +713,7 @@
             const icsContent = [
                 "BEGIN:VCALENDAR",
                 "VERSION:2.0",
-                "PRODID:-//Martin & Beatrice//Wedding//FR",
+                `PRODID:-//Martin & Beatrice//Wedding//${currentLang.toUpperCase()}`,
                 "BEGIN:VEVENT",
                 `UID:${event.now}-mariage@martinbeatrice.com`,
                 `DTSTAMP:${event.now}`,
