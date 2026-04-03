@@ -737,125 +737,125 @@
                             <input type="hidden" name="from_name" value="Mariage Béatrice & Martin">
                             <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
-                            <!-- Étape 1 : Identité -->
-                            <div class="form-step active" data-step="1">
-                                <div class="form-group">
-                                    <label class="form-label"><span data-t="label_nom">Nom</span> <span class="gold-text ml-1">*</span></label>
-                                    <input type="text" name="name" class="form-input" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label"><span data-t="label_prenom">Prénom</span> <span class="gold-text ml-1">*</span></label>
-                                    <input type="text" name="first_name" class="form-input" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label"><span data-t="label_email">E-mail</span> <span class="gold-text ml-1">*</span></label>
-                                    <input type="email" name="email" class="form-input" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label"><span data-t="label_phone">Numéro de téléphone</span> <span class="gold-text ml-1">*</span></label>
-                                    <input type="tel" name="phone" class="form-input" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label"><span data-t="label_address">Adresse Postale</span> <span class="gold-text ml-1">*</span></label>
-                                    <textarea name="address" class="form-input h-20 resize-none" required></textarea>
-                                </div>
-                            </div>
-
-                            <!-- Étape 2 : Présence -->
-                            <div class="form-step" data-step="2">
-                                <div class="form-group text-center">
-                                    <label class="form-label mb-6 text-sm"><span data-t="q_presence">Serez-vous présent le 02 Avril 2027 à l'île Maurice ?</span> <span class="gold-text ml-1">*</span></label>
-                                    <div class="radio-group">
-                                        <label class="radio-option" onclick="selectRadio(this)">
-                                            <input type="radio" name="attending" value="Oui" required>
-                                            <span data-t="yes">Oui</span>
-                                        </label>
-                                        <label class="radio-option" onclick="selectRadio(this)">
-                                            <input type="radio" name="attending" value="Non">
-                                            <span data-t="no">Non</span>
-                                        </label>
+                            <!-- Wrap everything in form-inner -->
+                            <div class="rsvp-form-inner">
+                                <!-- Étape 1 : Identité -->
+                                <div class="form-step active" data-step="1">
+                                    <div class="form-group">
+                                        <label class="form-label"><span data-t="label_nom">Nom</span> <span class="gold-text ml-1">*</span></label>
+                                        <input type="text" name="name" class="form-input" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label"><span data-t="label_prenom">Prénom</span> <span class="gold-text ml-1">*</span></label>
+                                        <input type="text" name="first_name" class="form-input" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label"><span data-t="label_email">E-mail</span> <span class="gold-text ml-1">*</span></label>
+                                        <input type="email" name="email" class="form-input" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label"><span data-t="label_phone">Numéro de téléphone</span> <span class="gold-text ml-1">*</span></label>
+                                        <input type="tel" name="phone" class="form-input" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label"><span data-t="label_address">Adresse Postale</span> <span class="gold-text ml-1">*</span></label>
+                                        <textarea name="address" class="form-input h-20 resize-none" required></textarea>
                                     </div>
                                 </div>
-                            </div>
 
-
-                            <!-- Étape 3 : Détails Invités (Conditionnel) -->
-                            <div class="form-step" data-step="3" id="step-guests">
-                                <div class="form-group">
-                                    <label class="form-label"><span data-t="q_adults">Combien d'adultes serez-vous ?</span> <span class="gold-text ml-1">*</span></label>
-                                    <select name="adult_count" class="form-input">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label"><span data-t="q_children">Combien d'enfants vous accompagneront ?</span> <span class="gold-text ml-1">*</span></label>
-                                    <select name="child_count" class="form-input">
-                                        <option value="0">0</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <!-- Étape 4 : Logement (Conditionnel) -->
-                            <div class="form-step" data-step="4" id="step-lodging">
-                                <div class="form-group">
-                                    <label class="form-label"><span data-t="q_lodging">Avez-vous une option de logement sur place pour la nuit du mariage ?</span> <span class="gold-text ml-1">*</span></label>
-                                    <div class="radio-group">
-                                        <label class="radio-option" onclick="selectRadio(this)">
-                                            <input type="radio" name="has_lodging" value="Oui">
-                                            <span data-t="yes">Oui</span>
-                                        </label>
-                                        <label class="radio-option" onclick="selectRadio(this)">
-                                            <input type="radio" name="has_lodging" value="Non">
-                                            <span data-t="no">Non</span>
-                                        </label>
+                                <!-- Étape 2 : Présence -->
+                                <div class="form-step" data-step="2">
+                                    <div class="form-group text-center">
+                                        <label class="form-label mb-6 text-sm"><span data-t="q_presence">Serez-vous présent le 02 Avril 2027 à l'île Maurice ?</span> <span class="gold-text ml-1">*</span></label>
+                                        <div class="radio-group">
+                                            <label class="radio-option" onclick="selectRadio(this)">
+                                                <input type="radio" name="attending" value="Oui" required>
+                                                <span data-t="yes">Oui</span>
+                                            </label>
+                                            <label class="radio-option" onclick="selectRadio(this)">
+                                                <input type="radio" name="attending" value="Non">
+                                                <span data-t="no">Non</span>
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
-                                
-                                <div id="lodging-preference" class="hidden mt-6">
-                                    <label class="form-label" data-t="q_lodging_pref">Souhaitez-vous :</label>
-                                    <div class="radio-group">
-                                        <label class="radio-option" onclick="selectRadio(this)">
-                                            <input type="radio" name="lodging_choice" value="Propres moyens">
-                                            <span data-t="lodging_own">Trouver par mes propres moyens</span>
-                                        </label>
-                                        <label class="radio-option" onclick="selectRadio(this)">
-                                            <input type="radio" name="lodging_choice" value="Tarif groupe">
-                                            <span data-t="lodging_group">Être inclus dans les demandes de potentiel devis de groupe</span>
-                                        </label>
+
+                                <!-- Étape 3 : Détails Invités (Conditionnel) -->
+                                <div class="form-step" data-step="3" id="step-guests">
+                                    <div class="form-group">
+                                        <label class="form-label"><span data-t="q_adults">Combien d'adultes serez-vous ?</span> <span class="gold-text ml-1">*</span></label>
+                                        <select name="adult_count" class="form-input">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label"><span data-t="q_children">Combien d'enfants vous accompagneront ?</span> <span class="gold-text ml-1">*</span></label>
+                                        <select name="child_count" class="form-input">
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
                                     </div>
                                 </div>
-                            </div>
 
-
-                            <!-- Étape 5 : Conclusion -->
-                            <div class="form-step" data-step="5">
-                                <div class="text-center mb-8">
-                                    <div id="msg-present" class="hidden">
-                                        <p data-t="msg_yes" class="serif text-lg text-[#223562]">Nous sommes ravis de pouvoir compter sur votre présence !</p>
+                                <!-- Étape 4 : Logement (Conditionnel) -->
+                                <div class="form-step" data-step="4" id="step-lodging">
+                                    <div class="form-group">
+                                        <label class="form-label"><span data-t="q_lodging">Avez-vous une option de logement sur place pour la nuit du mariage ?</span> <span class="gold-text ml-1">*</span></label>
+                                        <div class="radio-group">
+                                            <label class="radio-option" onclick="selectRadio(this)">
+                                                <input type="radio" name="has_lodging" value="Oui">
+                                                <span data-t="yes">Oui</span>
+                                            </label>
+                                            <label class="radio-option" onclick="selectRadio(this)">
+                                                <input type="radio" name="has_lodging" value="Non">
+                                                <span data-t="no">Non</span>
+                                            </label>
+                                        </div>
                                     </div>
-                                    <div id="msg-absent" class="hidden">
-                                        <p data-t="msg_no" class="serif text-lg text-[#223562]">Nous sommes désolés d’apprendre votre absence...</p>
+                                    <div id="lodging-preference" class="hidden mt-6">
+                                        <label class="form-label" data-t="q_lodging_pref">Souhaitez-vous :</label>
+                                        <div class="radio-group">
+                                            <label class="radio-option" onclick="selectRadio(this)">
+                                                <input type="radio" name="lodging_choice" value="Propres moyens">
+                                                <span data-t="lodging_own">Trouver par vos propres moyens</span>
+                                            </label>
+                                            <label class="radio-option" onclick="selectRadio(this)">
+                                                <input type="radio" name="lodging_choice" value="Tarif groupe">
+                                                <span data-t="lodging_group">Être inclus dans les demandes de potentiel devis de groupe</span>
+                                            </label>
+                                        </div>
                                     </div>
-                                    <p id="msg-final" class="mt-4 text-slate-500 text-sm italic" data-t="msg_final_yes">Vous recevrez bientôt les invitations.</p>
                                 </div>
-                                <button type="submit" id="submit-btn" class="btn-form btn-next w-full">
-                                    <span data-t="submit_rsvp">Envoyer la réponse</span>
-                                </button>
-                            </div>
 
-                            <!-- Navigation -->
-                            <div class="step-nav">
-                                <button type="button" id="prev-btn" class="btn-form btn-prev hidden" onclick="changeStep(-1)">Précédent</button>
-                                <button type="button" id="next-btn" class="btn-form btn-next" onclick="changeStep(1)">Suivant</button>
+                                <!-- Étape 5 : Conclusion -->
+                                <div class="form-step" data-step="5">
+                                    <div class="text-center mb-8">
+                                        <div id="msg-present" class="hidden">
+                                            <p data-t="msg_yes" class="serif text-lg text-[#223562]">Nous sommes ravis de pouvoir compter sur votre présence !</p>
+                                        </div>
+                                        <div id="msg-absent" class="hidden">
+                                            <p data-t="msg_no" class="serif text-lg text-[#223562]">Nous sommes désolés d’apprendre votre absence...</p>
+                                        </div>
+                                        <p id="msg-final" class="mt-4 text-slate-500 text-sm italic" data-t="msg_final_yes">L'invitation formelle vous parviendra prochainement.</p>
+                                    </div>
+                                    <button type="submit" id="submit-btn" class="btn-form btn-next w-full">
+                                        <span data-t="submit_rsvp">Envoyer la réponse</span>
+                                    </button>
+                                </div>
+
+                                <!-- Navigation -->
+                                <div class="step-nav">
+                                    <button type="button" id="prev-btn" class="btn-form btn-prev hidden" onclick="changeStep(-1)">Précédent</button>
+                                    <button type="button" id="next-btn" class="btn-form btn-next" onclick="changeStep(1)">Suivant</button>
+                                </div>
                             </div>
 
                             <div id="form-result" class="hidden mt-6 text-center text-sm font-bold uppercase tracking-widest text-[#b8a27d]"></div>
@@ -1030,6 +1030,47 @@
             }
         }
 
+        function validateStep(step) {
+            const currentStepEl = document.querySelector(`.form-step[data-step="${step}"]`);
+            if (!currentStepEl) return true;
+
+            const inputs = currentStepEl.querySelectorAll('input, select, textarea');
+            let isValid = true;
+            
+            // Check HTML5 validation for inputs
+            inputs.forEach(input => {
+                if (input.hasAttribute('required') && !input.checkValidity()) {
+                    isValid = false;
+                    // Trigger native validation UI if possible, or just focus
+                    input.reportValidity();
+                }
+            });
+
+            if (!isValid) return false;
+
+            // Custom logic for Radio Groups (which might not trigger reportValidity easily in groups)
+            switch(step) {
+                case 2:
+                    const attending = document.querySelector('input[name="attending"]:checked');
+                    if (!attending) {
+                        alert(currentLang === 'en' ? "Please select if you will be present." : "Veuillez indiquer si vous serez présent.");
+                        return false;
+                    }
+                    break;
+                case 4:
+                    const isAttending = document.querySelector('input[name="attending"]:checked')?.value;
+                    if (isAttending === 'Oui' || isAttending === 'Yes') {
+                        const hasLodging = document.querySelector('input[name="has_lodging"]:checked');
+                        if (!hasLodging) {
+                            alert(currentLang === 'en' ? "Please select an accommodation option." : "Veuillez choisir une option de logement.");
+                            return false;
+                        }
+                    }
+                    break;
+            }
+            return true;
+        }
+
         function changeStep(n) {
             const steps = document.querySelectorAll('.form-step');
             
@@ -1040,9 +1081,9 @@
             const attendingInput = document.querySelector('input[name="attending"]:checked');
             const attending = attendingInput ? attendingInput.value : null;
 
-            if (currentStep === 2 && n > 0 && attending === 'Non') {
+            if (currentStep === 2 && n > 0 && (attending === 'Non' || attending === 'No')) {
                 nextStep = 5;
-            } else if (currentStep === 5 && n < 0 && attending === 'Non') {
+            } else if (currentStep === 5 && n < 0 && (attending === 'Non' || attending === 'No')) {
                 nextStep = 2;
             }
 
@@ -1056,7 +1097,7 @@
             updateProgress();
             
             if (currentStep === 5) {
-                const isAttending = (attending === 'Oui');
+                const isAttending = (attending === 'Oui' || attending === 'Yes');
                 document.getElementById('msg-present').classList.toggle('hidden', !isAttending);
                 document.getElementById('msg-absent').classList.toggle('hidden', isAttending);
                 
@@ -1066,25 +1107,6 @@
                     finalMsg.innerHTML = translations[currentLang][isAttending ? 'msg_final_yes' : 'msg_final_no'];
                 }
             }
-        }
-
-        function validateStep(step) {
-            const currentEl = document.querySelector(`.form-step[data-step="${step}"]`);
-            const inputs = currentEl.querySelectorAll('input[required], textarea[required]');
-            let valid = true;
-            inputs.forEach(input => {
-                if (input.type === 'radio') {
-                    const checked = currentEl.querySelector(`input[name="${input.name}"]:checked`);
-                    if (!checked) valid = false;
-                } else if (!input.value.trim()) {
-                    valid = false;
-                }
-            });
-            
-            if (!valid) {
-                alert(translations[currentLang].validation_error);
-            }
-            return valid;
         }
 
         function updateNav() {
@@ -1279,32 +1301,64 @@
         if (rsvpForm) {
             rsvpForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                const formData = new FormData(rsvpForm);
+                
                 const submitBtn = document.getElementById('submit-btn');
                 const result = document.getElementById('form-result');
+                const formInner = rsvpForm.querySelector('.rsvp-form-inner'); // We'll wrap fields in this
 
                 submitBtn.disabled = true;
                 submitBtn.innerText = translations[currentLang].sending;
 
+                const formData = new FormData(rsvpForm);
+                const object = Object.fromEntries(formData);
+                const json = JSON.stringify(object);
+
                 fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
-                    body: formData
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
                 })
                 .then(async (response) => {
-                    if (response.status == 200) {
-                        result.innerHTML = translations[currentLang].success_msg;
+                    let res = await response.json();
+                    if (response.ok) {
+                        // Success UI
+                        result.innerHTML = `<div class="p-8 text-[#223562]">
+                            <svg class="w-16 h-16 mx-auto mb-4 text-[#b8a27d]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <h3 class="serif text-2xl mb-2">${currentLang === 'en' ? 'Thank You!' : 'Merci !'}</h3>
+                            <p class="font-light italic">${translations[currentLang].success_msg}</p>
+                        </div>`;
                         result.classList.remove('hidden');
+                        if (formInner) formInner.classList.add('hidden');
                         submitBtn.classList.add('hidden');
-                        setTimeout(() => toggleRSVP(false), 3000);
+                        
+                        setTimeout(() => {
+                            toggleRSVP(false);
+                            // Reset for next time if they open it again
+                            setTimeout(() => {
+                                result.classList.add('hidden');
+                                if (formInner) formInner.classList.remove('hidden');
+                                submitBtn.classList.remove('hidden');
+                                submitBtn.disabled = false;
+                                submitBtn.innerText = translations[currentLang].submit_rsvp;
+                                rsvpForm.reset();
+                                currentStep = 1;
+                                document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+                                document.querySelector('.form-step[data-step="1"]').classList.add('active');
+                                updateProgress();
+                            }, 500);
+                        }, 5000);
                     } else {
-                        result.innerHTML = translations[currentLang].error_msg_form;
-                        result.classList.remove('hidden');
-                        submitBtn.disabled = false;
-                        submitBtn.innerText = translations[currentLang].submit_rsvp;
+                        throw new Error(res.message || "Error");
                     }
                 })
                 .catch(error => {
-                    result.innerHTML = translations[currentLang].error_msg_form;
+                    console.log(error);
+                    result.innerHTML = `<span class="text-red-500">${translations[currentLang].error_msg_form}</span>`;
                     result.classList.remove('hidden');
                     submitBtn.disabled = false;
                     submitBtn.innerText = translations[currentLang].submit_rsvp;
